@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/icons/32">
+    <file alias="document-new">res/icons/32/document-new.png</file>
+    <file alias="document-open">res/icons/32/document-open.png</file>
+    <file alias="document-save">res/icons/32/document-save.png</file>
+    <file alias="document-save-as">res/icons/32/document-save-as.png</file>
+    <file alias="media-playback-start">res/icons/32/media-playback-start.png</file>
+    <file alias="edit-find">res/icons/32/edit-find.png</file>
+    <file alias="edit-clear">res/icons/32/edit-clear.png</file>
+    <file alias="system-log-out">res/icons/32/system-log-out.png</file>
+    </qresource>
+</RCC>
