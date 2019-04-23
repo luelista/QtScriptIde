@@ -26,27 +26,36 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
+    macrorecorder.cpp \
+    sidescintillawindow.cpp \
     sidedocument.cpp \
-    macrorecorder.cpp
+    sidewindow.cpp \
+    fileinterfaces.cpp
 
 HEADERS += \
         mainwindow.h \
+    macrorecorder.h \
+    sidescintillawindow.h \
     sidedocument.h \
-    macrorecorder.h
+    sidewindow.h \
+    fileinterfaces.h
 
 FORMS += \
         mainwindow.ui
 
 message(OUT PWD:  $$OUT_PWD)
 
-win32:CONFIG(release, debug|release): LIBS += -L$$OUT_PWD/../scintilla/qt/ScintillaEdit/release/ -lScintillaEdit4
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$OUT_PWD/../scintilla/qt/ScintillaEdit/debug/ -lScintillaEdit4
-else:unix: LIBS += -L$$OUT_PWD/../scintilla/bin/ -lScintillaEdit4
+RESOURCES += \
+    sideres.qrc
+
+win32:CONFIG(release, debug|release): SCINTILLALIBDIR = $$OUT_PWD/../scintilla/qt/ScintillaEdit/release
+else:win32:CONFIG(debug, debug|release): SCINTILLALIBDIR = $$OUT_PWD/../scintilla/qt/ScintillaEdit/debug
+else:unix: SCINTILLALIBDIR = $$OUT_PWD/../scintilla/qt/ScintillaEdit
+
+LIBS += -L$$SCINTILLALIBDIR/ -lScintillaEdit
 
 INCLUDEPATH += $$PWD/../scintilla/qt/ScintillaEdit \
     $$PWD/../scintilla/qt/ScintillaEditBase \
     $$PWD/../scintilla/include
 DEPENDPATH += $$PWD/../scintilla/qt/ScintillaEdit
 
-RESOURCES += \
-    sideres.qrc

@@ -9,7 +9,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ScintillaEdit
 TEMPLATE = lib
-CONFIG += lib_bundle
+CONFIG += staticlib
+#CONFIG += lib_bundle
 CONFIG += c++14
 
 VERSION = 4.0.2
@@ -85,5 +86,6 @@ CONFIG(release, debug|release) {
 #DLLDESTDIR = ../../bin
 
 macx {
-	QMAKE_LFLAGS_SONAME = -Wl,-install_name,@executable_path/../Frameworks/
+    QMAKE_LFLAGS_SONAME = -Wl,-install_name,@executable_path/../Frameworks/
 }
+
