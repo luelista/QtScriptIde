@@ -1,11 +1,18 @@
 #include "sidescintillawindow.h"
 
+#include <qboxlayout.h>
+
 sIDEScintillaWindow::sIDEScintillaWindow(sIDEDocument *document, QWidget *parent) : sIDEWindow (document, parent)
 {
 
 	scintilla = new ScintillaEdit(this);
+    QGridLayout *layout = new QGridLayout(this);
+    layout->setSpacing(0);
+    layout->setContentsMargins(0,0,0,0);
+    layout->addWidget(scintilla);
+
 	//setCentralWidget(scintilla);
-	connect(scintilla, SIGNAL(macroRecord(int,uptr_t,sptr_t)), this, SLOT(on_macroRecord(int,uptr_t,sptr_t)));
+    //connect(scintilla, SIGNAL(macroRecord(int,uptr_t,sptr_t)), this, SLOT(on_macroRecord(int,uptr_t,sptr_t)));
 
 	scintilla->setMultipleSelection(true);
 	scintilla->setAdditionalSelectionTyping(true);
@@ -22,8 +29,9 @@ class PScintillaPipeInput : public IPipeInput<QString> {
 public:
 	ScintillaEdit *target;
 
-	void onData(const QString &bytes) {
-		target->addText(bytes.size(), (const char*)bytes.constData());
+    void onData(const QString &string) {
+        QByteArray inUtf8 = string.toUtf8();
+        target->addText(inUtf8.size(), (const char*)inUtf8.constData());
 	}
 	void onEnd() {}
 };

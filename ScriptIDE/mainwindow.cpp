@@ -1,5 +1,7 @@
 #include "macrorecorder.h"
 #include "mainwindow.h"
+#include "sidescintillawindow.h"
+#include "sidewindow.h"
 #include "ui_mainwindow.h"
 
 #include <QSettings>
@@ -9,6 +11,7 @@
 #include <QMessageBox>
 #include <QJsonDocument>
 #include <QQmlEngine>
+#include <QMdiSubWindow>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -75,14 +78,12 @@ void MainWindow::openFile(QString filespec)
 		}
 	}
 	sIDEDocument * doc = new sIDEDocument();
-	doc->filespec = filespec;
-	QFile f(filespec);
-	f.open(QIODevice::ReadOnly);
-	QByteArray bytes = f.readAll();
-	doc->insert_string(0, bytes);
-	documents.append(doc);
-
-	setCurrentDocument(doc);
+    doc->filespec = filespec;
+    sIDEWindow * win = new sIDEScintillaWindow(doc);
+    //QMdiSubWindow * mdiwin = new QMdiSubWindow(); //ui->mdiArea
+    ui->mdiArea->addSubWindow(win);
+    win->show();
+    win->load();
 }
 
 void MainWindow::closeCurrentDocument()
@@ -145,21 +146,6 @@ void MainWindow::on_actionOpen_Files_triggered()
 	ui->dwOpenFiles->show();
 }
 
-void MainWindow::on_actionFile_Explorer_triggered()
-{
-	ui->dwExplorer->show();
-}
-
-void MainWindow::on_actionTable_Of_Contents_triggered()
-{
-	ui->dwTOC->show();
-}
-
-void MainWindow::on_actionSearch_Results_triggered()
-{
-	ui->dwSearchResults->show();
-}
-
 void MainWindow::closeEvent(QCloseEvent *event)
 {
 	QSettings settings("Weller IT", "ScriptIDE Q");
@@ -186,9 +172,11 @@ void MainWindow::on_actionNew_Script_triggered()
 {
 	sIDEDocument * doc = new sIDEDocument();
 	doc->filespec = "untitled " + QString::number(untitledCounter++);
-	documents.append(doc);
-
-	setCurrentDocument(doc);
+    sIDEWindow * win = new sIDEScintillaWindow(doc);
+    //QMdiSubWindow * mdiwin = new QMdiSubWindow(); //ui->mdiArea
+    ui->mdiArea->addSubWindow(win);
+    win->show();
+    win->load();
 }
 
 void MainWindow::on_actionOpen_triggered()
@@ -219,11 +207,11 @@ void MainWindow::on_macroRecord(int msg, uptr_t wparam, sptr_t lparam)
 
 void MainWindow::on_actionStart_macro_recording_triggered(bool checked)
 {
-	if (checked) {
+    /*if (checked) {
 		scintilla->startRecord();
 	} else {
 		scintilla->stopRecord();
-	}
+    }*/
 }
 
 void MainWindow::on_actionRun_macro_triggered()

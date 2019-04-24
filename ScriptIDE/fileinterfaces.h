@@ -55,9 +55,7 @@ public:
 	// IPipeInput interface
 private:
 	void onData(const QString &bytes);
-	void onEnd(){
-		onOutEnd();
-	}
+    void onEnd(){ onOutEnd(); }
 };
 
 
@@ -76,7 +74,7 @@ public:
 	// IPipeInput interface
 public:
 	void onData(const QByteArray &bytes);
-	void onEnd();
+    void onEnd(){ onOutEnd(); }
 };
 
 
@@ -91,9 +89,7 @@ public:
 	// IPipeInput interface
 private:
 	void onData(const QByteArray &bytes);
-	void onEnd(){
-		onOutEnd();
-	}
+    void onEnd(){ onOutEnd(); }
 };
 
 

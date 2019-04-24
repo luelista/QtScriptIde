@@ -43,13 +43,10 @@ public:
 	ScintillaEdit * createScDockWindow(QString objectName, QString title);
 
 private slots:
-	void on_actionOpen_Files_triggered();
-
-	void on_actionFile_Explorer_triggered();
-
-	void on_actionTable_Of_Contents_triggered();
-
-	void on_actionSearch_Results_triggered();
+    void on_actionOpen_Files_triggered();
+    //void on_actionFile_Explorer_triggered();
+    //void on_actionTable_Of_Contents_triggered();
+    //void on_actionSearch_Results_triggered();
 
 	void on_actionNew_Script_triggered();
 
